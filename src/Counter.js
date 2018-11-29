@@ -9,11 +9,15 @@ export default class Counter extends Component {
 	}
 
 	increment = () => {
-		// 限制 state.count 的最大值
-		this.setState(state => {
-			if (state.count >= 5) return
-			return { count: state.count + 1 }
-		})
+		// this.setState 传入回调函数
+		this.setState(
+			{
+				count: this.state.count + 1
+			},
+			() => {
+				console.log(this.state.count)
+			}
+		)
 	}
 
 	render() {
