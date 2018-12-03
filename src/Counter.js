@@ -1,37 +1,57 @@
 import React, { Component } from 'react'
+import { store } from './store'
 
 export default class Counter extends Component {
 	constructor(props) {
 		super(props)
-		this.state = {
-			count: 1
-		}
+		this.state = store.getState()
 	}
 
-	increment = () => {
-		// this.setState 传入回调函数
-		this.setState(
-			{
-				count: this.state.count + 1
-			},
-			() => {
-				console.log(this.state.count)
-			}
-		)
+	updateState = () => {
+		this.setState(store.getState())
+	}
+
+	componentWillMount() {
+		console.log(store.getState())
+		store.subscribe(this.updateState)
+	}
+
+	// componentWillUnmount() {
+	// 	store.Unsubscribe(this.updateState)
+	// }
+
+	onIncrement = () => {
+		const action = {
+			type: 'ON_INCREMENT',
+			value: 1
+		}
+		store.dispatch(action)
+	}
+	onDecrement = () => {
+		const action = {
+			type: 'ON_DECREMENT',
+			value: -1
+		}
+		store.dispatch(action)
+	}
+	onReset = () => {
+		const action = {
+			type: 'ON_RESET'
+		}
+		store.dispatch(action)
 	}
 
 	render() {
-		const { count } = this.state
 		return (
 			<section className='Counter'>
-				<h1>Count: {count}</h1>
-				<button onClick={this.increment} className='full-width'>
+				<h1>Count: {this.state.value}</h1>
+				<button onClick={this.onIncrement} className='full-width'>
 					Increment
 				</button>
-				<button onClick={() => {}} className='full-width'>
+				<button onClick={this.onDecrement} className='full-width'>
 					Decrement
 				</button>
-				<button onClick={() => {}} className='full-width'>
+				<button onClick={this.onReset} className='full-width'>
 					Reset
 				</button>
 			</section>

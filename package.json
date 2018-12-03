@@ -48,7 +48,7 @@
     "react-dom": "^16.1.0",
     "react-error-overlay": "^1.0.10",
     "react-redux": "5.0.6",
-    "redux": "3.7.2",
+    "redux": "^3.7.2",
     "redux-saga": "^0.16.0",
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.6",
